@@ -1,6 +1,5 @@
 # Overview
 
-
 ## Plugins
 
 * `loan_model` - Compute Recurring Transactions with Expression Evaluation Support.

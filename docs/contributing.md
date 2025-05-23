@@ -5,7 +5,10 @@
 
 This is a collection of loosely related
 [`beancount`](https://furius.ca/beancount) plugins that I have pulled together
-based on a variety of community sources and inspiration. While I've tried to credit where due; it may be incomplete. If you find something that needs correction, please let me know with an issue on the [issue tracker](https://github.com/muonzoo/beancount_muonzoo_plugins/issues).
+based on a variety of community sources and inspiration. While I've tried to
+credit where due; it may be incomplete. If you find something that needs
+correction, please let me know with an issue on the [issue
+tracker](https://github.com/muonzoo/beancount_muonzoo_plugins/issues).
 
 ## About
 
@@ -18,8 +21,6 @@ which is itself open source. Feedback & suggestions for improvement are welcome.
 ---- 
 
 ## Submitting bugs
-
-
 
 ### Due diligence
 
@@ -38,10 +39,13 @@ Before submitting a bug, please do the following:
       dependencies (other libraries, etc) try upgrading/downgrading those as
       well.
 
-* **Search the project's bug/issue tracker** to make sure it's not a known
-  issue.
-* If you don't find a pre-existing issue, consider **checking with the mailing
-  list and/or IRC channel** in case the problem is non-bug-related.
+* **Search the [issue
+  tracker](https://github.com/muonzoo/beancount_muonzoo_plugins/issues)** to
+  make sure it's not a known issue.
+* If you find a pre-existing issue, review the conversation and consider adding
+  additional context, test cases or platform information that would help with
+  resolution of the issue. eg) everyone has reported and issue on MacOS but
+  you're also experiencing it on Linux.
 
 ## What to put in your bug report
 
@@ -69,12 +73,12 @@ constitutes a bare minimum; more info is almost always better:
       problems which aren't real bugs, but it means the developer can get to
       fixing the bug faster.
 
-
 ## Contributing changes
 
 
 ### Licensing of contributed material
 
+> Your contribution will be licensed as the rest of the project.
 
 Keep in mind as you contribute, that code, docs and other material submitted to
 open source projects are usually considered licensed under the same terms
@@ -100,6 +104,8 @@ document's authors:
       per-file header outdated/misleading.
 
 ### Version control branching
+
+> One branch, one change.
 
 * Always **make a new branch** for your work, no matter how small. This makes
   it easy for others to take just that one set of changes from your repository,
@@ -131,6 +137,8 @@ document's authors:
           main** to ensure a speedier resolution.
 
 ## Code formatting
+
+> TL;DR -  We use `ruff format` as configured in [`pyproject.toml`](https://github.com/muonzoo/beancount_muonzoo_plugins/pyproject.toml).
 
 * **Follow the style you see used in the primary repository**! Consistency with
   the rest of the project always trumps other considerations. It doesn't matter

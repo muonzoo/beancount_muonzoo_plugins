@@ -1,5 +1,17 @@
 site_name: Misc Beancount Plugins
 nav:
   - Home: index.md
-  - Contributing: about.md
-theme: material
+  - Contributing: contributing.md
+theme:
+  name: material
+extra:
+  analytics:
+    provider: google
+    property: G-4J9S6G6DBB
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
