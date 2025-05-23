@@ -308,7 +308,7 @@ def loan_model(
     #
 
     for entry in entries:
-        with entry_error_handler(entry, through_entries, errors, LoanModelError):
+        if True:
             if last_date is None:
                 last_date = entry.date
 

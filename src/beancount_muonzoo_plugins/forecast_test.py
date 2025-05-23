@@ -10,10 +10,10 @@ from beancount.parser import cmptest
 
 class TestExampleForecast(cmptest.TestCase):
     def test_forecast(self):
-        input_text = textwrap.dedent("""
+        input_text = textwrap.dedent(
+            """
 
-            plugin "beancount_muonzoo.plugins.forecast"
-
+            plugin "beancount_muonzoo_plugins.forecast"
             2011-01-01 open Expenses:Restaurant
             2011-01-01 open Assets:Cash
 
@@ -21,7 +21,8 @@ class TestExampleForecast(cmptest.TestCase):
               Expenses:Restaurant   50.02 USD
               Assets:Cash
 
-        """)
+        """
+        )
         entries, errors, __ = loader.load_string(input_text)
         self.assertFalse(errors)
         self.assertEqualEntries(
