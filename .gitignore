@@ -1,0 +1,12 @@
+.eggs
+*.egg-info
+.python-version
+__pycache__
+*.eggs
+pytestdebug.log
+_build
+_static
+.tox
+dist/
+*.swp
+importer.log
