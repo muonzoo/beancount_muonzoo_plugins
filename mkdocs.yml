@@ -1,1 +1,5 @@
 site_name: Misc Beancount Plugins
+nav:
+  - Home: index.md
+  - Contributing: about.md
+theme: material

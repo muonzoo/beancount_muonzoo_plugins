@@ -3,7 +3,7 @@ name = "beancount_muonzoo_plugins"
 version = "v0.1.0"
 description = "Supporting plugins for beancount"
 authors = [
-    {name = "Alan Hawrylyshen",email = "muonzoo@users.github.com"}
+    {name = "Alan Hawrylyshen",email = "muonzoo@users.noreply.github.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
@@ -81,7 +81,8 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 [tool.poetry.group.dev.dependencies]
 ruff = ">=0.11.9"
-mkdocs = "^1.6.1"
+mkdocs = ">=1.6.1"
+mkdocs-material = ">=9.6.14"
 
 [tool.poetry.group.test.dependencies]
 tox = ">=4.23.2"
