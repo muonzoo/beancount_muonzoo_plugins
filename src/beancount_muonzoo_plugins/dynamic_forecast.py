@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
 
-"""
-Loan Model -- simple plugin to compute interest based on a balance in a liability.
+"""Dynamic Forecast -- simple plugin to compute postings based on the account states on the date of the transaction.
 
-Note that this should ape from beancount/beancount/ops/balance.py and
-build a running balance on all accounts; then when hitting the (possibly recurring)
-transactions, insert them after using the accumulated state of the accounts.
+This plugin tracks balances (inventories) in all accounts referenced and makes
+them available in a context for evaluating postings of the transaction.
 
-So - compute balances for Accounts in real-time and push recurring transactions into an ordered list
-pop them out of the ordered list as the date is passing the transaction date.
+Recurring transactions are based on the earlier beancount plugin, `forecast.py`.
 
-
-
-Possibly pre-compute all the dates to add transactions and merge sort with the entries?
+The plugin effectively computes a merge sort of pending recurring transactions and the existing entries.
 
 """
 
@@ -50,7 +45,7 @@ from beancount.core.number import D
 import logging
 
 __flag_char = "%"
-__plugin_name__ = "loan_model"
+__plugin_name__ = "dynamic_forecast"
 __plugins__ = (__plugin_name__,)
 
 __bal_acc = "bal_acc_"
@@ -73,12 +68,16 @@ pf = lambda obj: pformat(
 
 
 class Config(NamedTuple):
-    """not much other than logging and debug to configure"""
+    """Capture the config dict passed to the plugin."""
 
     debug: bool = False
+    """ Is debugging on or not? """
+
     debug_level: int = None
+    """ The python logging level."""
 
     debug_sets: Set[str] = set()
+    """ A list of comma separated 'flags' that enable specific logging statements. """
 
 
 def clean_ctx(ctx_dict):
@@ -91,7 +90,14 @@ def clean_ctx(ctx_dict):
 
 
 def ordered_insert(iterable, item, relop):
-    # traverse looking for insertion point
+    """
+    For all `x` in `iterable`, traverse and insert `item` at the first location `relop` is false.
+
+    - `x` : each element from `iterable` in turn.
+    - `iterable` : a mutable iterable in which to insert `item`
+    - `relop` a binary function that compares two elements of type of `item` and `x`.
+
+    """
     # relop(item, x) changes to false
     i = 0
     while i < len(iterable):
@@ -130,8 +136,8 @@ def expr_varname(key):
     return key[len(__expr) :] if len(key) > len(__expr) else "expr"
 
 
-def process_computed_entry(real_root, event_map, loan_transaction):
-    logger.info(f"{loan_transaction.date=} {loan_transaction.narration=}")
+def process_computed_entry(real_root, event_map, dynamic_transaction):
+    logger.info(f"{dynamic_transaction.date=} {dynamic_transaction.narration=}")
 
     # build context for evaluation - supply add/sub/mul/div/D/R as functions
 
@@ -147,7 +153,7 @@ def process_computed_entry(real_root, event_map, loan_transaction):
 
     calc_ctx = dict()
 
-    ltm = loan_transaction.meta
+    ltm = dynamic_transaction.meta
     # new_meta will get all metadata EXCEPT items that are used to evaluate the value
     # all bal_acc_ and event_ fields along with expr will be suppressed.
 
@@ -187,7 +193,7 @@ def process_computed_entry(real_root, event_map, loan_transaction):
     # find the posting(s) with 'expr' metadata and compute result
 
     postings = []
-    for posting in loan_transaction.postings:
+    for posting in dynamic_transaction.postings:
         expr = posting.meta.get(__expr[:-1], None)
         if expr is not None:
             logger.debug(f"{posting.account=} {expr=}")
@@ -198,7 +204,9 @@ def process_computed_entry(real_root, event_map, loan_transaction):
             logger.debug(f"no metadata {posting=}")
             postings.append(posting)
 
-    return loan_transaction._replace(meta=new_meta | clean_ctx(calc_ctx), postings=postings)
+    return dynamic_transaction._replace(
+        meta=new_meta | clean_ctx(calc_ctx), postings=postings
+    )
 
 
 def update_balances(real_root, entry):
@@ -217,23 +225,23 @@ def log_entry(prefix: str, entry, level: int = logging.DEBUG):
         logger.log(level, "{prefix}: {line}".format(prefix=prefix, line=line))
 
 
-def loan_model(
+def dynamic_forecast(
     entries: Entries, unused_options_map, config_string: str, *args
 ) -> Tuple[Entries, List[NamedTuple]]:
-    """An example loan model on top of the Beancount input syntax to
-    insert loan payments and update liabilities appropriately. This plugin
-    can be called multiple times; with unique  `balance_account`s.
+    """
+    An example dynamic posting computation plugin that allows postings to be
+    computed based on balances at a point in time.
 
     Args:
-      entries: a list of entry instances
-      options_map: a dict of options parsed from the file
+      entries: a list of entry instances - as per beancount
       config_string: a dict as str with the required configuration:
-        expense_account : Where to post the interest charges.
         debug : bool or comma-separated keys
         debug_level : logging levels
+        debug_sets : a comma separated list of special debug sections
 
     Returns:
       A tuple of entries and errors.
+
     """
 
     # get config items to add to each loan metadata
@@ -318,10 +326,10 @@ def loan_model(
             # TODO: consider refactoring so that it stops automatically when a balance expression
             # is true...
             while len(pending_entries) > 0 and pending_entries[0].date <= last_date:
-                loan_transaction = pending_entries.popleft()
-                assert loan_transaction.date <= last_date
+                dynamic_transaction = pending_entries.popleft()
+                assert dynamic_transaction.date <= last_date
                 try:
-                    txn = process_computed_entry(real_root, event_map, loan_transaction)
+                    txn = process_computed_entry(real_root, event_map, dynamic_transaction)
                     update_balances(real_root, txn)
                     through_entries.append(txn)
                 except:  # noqa: E722
@@ -330,7 +338,7 @@ def loan_model(
                 # except:
                 #    errors.append(
                 #        LoanModelError(
-                #            loan_transaction.meta, "Computation Error:", loan_transaction
+                #            dynamic_transaction.meta, "Computation Error:", dynamic_transaction
                 #        )
                 #    )
 
@@ -354,8 +362,8 @@ def loan_model(
                     through_entries.append(entry)
                     log_entry("no repetition detected -- regularizing", entry)
                     continue
-                loan_narration = match.group(1).strip()
-                loan_interval = (
+                dynamic_narration = match.group(1).strip()
+                dynamic_interval = (
                     rrule.YEARLY
                     if match.group(2).strip() == "YEARLY"
                     else (
@@ -369,44 +377,46 @@ def loan_model(
                     )
                 )
 
-                loan_periodicity = {"dtstart": entry.date}
+                dynamic_periodicity = {"dtstart": entry.date}
 
                 if match.group(6):  # e.g., [MONTHLY REPEAT 3 TIMES]:
-                    loan_periodicity["count"] = int(match.group(6))
+                    dynamic_periodicity["count"] = int(match.group(6))
                 elif match.group(8):  # e.g., [MONTHLY UNTIL 2020-01-01]:
-                    loan_periodicity["until"] = datetime.datetime.strptime(
+                    dynamic_periodicity["until"] = datetime.datetime.strptime(
                         match.group(8), "%Y-%m-%d"
                     ).date()
                 else:
                     # e.g., [MONTHLY]
-                    loan_periodicity["until"] = datetime.date(
+                    dynamic_periodicity["until"] = datetime.date(
                         datetime.date.today().year, 12, 31
                     )
 
                 if match.group(4):
                     # SKIP
-                    loan_periodicity["interval"] = int(match.group(4)) + 1
+                    dynamic_periodicity["interval"] = int(match.group(4)) + 1
 
-                logger.debug(f"{loan_periodicity=}")
+                logger.debug(f"{dynamic_periodicity=}")
 
                 # Generate a new entry for each loan date.
-                loan_dates = [
-                    dt.date() for dt in rrule.rrule(loan_interval, **loan_periodicity)
+                dynamic_dates = [
+                    dt.date() for dt in rrule.rrule(dynamic_interval, **dynamic_periodicity)
                 ]
-                logger.debug(f"{loan_dates=}")
+                logger.debug(f"{dynamic_dates=}")
                 slen = len(pending_entries)
-                for loan_date in loan_dates:
+                for dynamic_date in dynamic_dates:
                     # Push these onto a queue that we merge sort from when the date increases or is seen.
                     # Keep these in  sorted order for certain. (Use some kind of sorted hash_map / ordered list).
-                    loan_entry = entry._replace(date=loan_date, narration=loan_narration)
-                    logger.info(f"pushing {loan_entry.date} {loan_entry.narration}")
+                    dynamic_entry = entry._replace(
+                        date=dynamic_date, narration=dynamic_narration
+                    )
+                    logger.info(f"pushing {dynamic_entry.date} {dynamic_entry.narration}")
                     # TODO: Append and compute the interest charges instead
                     # TODO: Event - track the appropriate rate.
 
                     ordered_insert(
-                        pending_entries, loan_entry, lambda a, b: a.date < b.date
+                        pending_entries, dynamic_entry, lambda a, b: a.date < b.date
                     )
-                assert len(pending_entries) - slen == len(loan_dates)
+                assert len(pending_entries) - slen == len(dynamic_dates)
                 assert all(a.date <= b.date for a, b in pairwise(pending_entries))
 
                 logger.info(f"{len(pending_entries)=}")
@@ -422,9 +432,9 @@ def loan_model(
 
     # Drain the swamp
     while len(pending_entries) > 0:
-        loan_transaction = pending_entries.popleft()
+        dynamic_transaction = pending_entries.popleft()
         try:
-            txn = process_computed_entry(real_root, event_map, loan_transaction)
+            txn = process_computed_entry(real_root, event_map, dynamic_transaction)
             update_balances(real_root, txn)
             log_entry("processing remaining queue items", txn, level=logging.DEBUG)
             through_entries.append(txn)
@@ -432,7 +442,7 @@ def loan_model(
             raise
             errors.append(
                 LoanModelError(
-                    loan_transaction.meta, "Computation Error: ", loan_transaction
+                    dynamic_transaction.meta, "Computation Error: ", dynamic_transaction
                 )
             )
 

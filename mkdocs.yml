@@ -1,9 +1,18 @@
-site_name: Misc Beancount Plugins
+site_name: Beancount Plugins
+
 nav:
   - Home: index.md
   - Contributing: contributing.md
+  - Loan Model: loan_model.md
+  - Metadata Spray: metadata_spray.md
+
 theme:
   name: material
+
+plugins:
+  - search
+  - mkdocstrings
+
 extra:
   analytics:
     provider: google

@@ -2,7 +2,7 @@
 
 ## Plugins
 
-* `loan_model` - Compute Recurring Transactions with Expression Evaluation Support.
+* [`loan_model`](loan_model.md) - Compute Recurring Transactions with Expression Evaluation Support.
 * `metadata_spray` - add metadata to directives using pattern matching.
 
 ## Project layout
