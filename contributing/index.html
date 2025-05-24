@@ -1,0 +1,949 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../dynamic_forecast/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Contributing - Beancount Plugins</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-4J9S6G6DBB"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-4J9S6G6DBB",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-4J9S6G6DBB",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>if("undefined"!=typeof __md_analytics){var consent=__md_get("__consent");consent&&consent.analytics&&__md_analytics()}</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contributing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Beancount Plugins" class="md-header__button md-logo" aria-label="Beancount Plugins" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Beancount Plugins
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Beancount Plugins" class="md-nav__button md-logo" aria-label="Beancount Plugins" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Beancount Plugins
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    <span class="md-ellipsis">
+      About
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submitting bugs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Submitting bugs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#due-diligence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Due diligence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-put-in-your-bug-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to put in your bug report
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#licensing-of-contributed-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      Licensing of contributed material
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-control-branching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version control branching
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code formatting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-isnt-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation isn't optional
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests-arent-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests aren't optional
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic_forecast/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dynamic Forecast
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metadata_spray/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadata Spray
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    <span class="md-ellipsis">
+      About
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submitting bugs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Submitting bugs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#due-diligence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Due diligence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-put-in-your-bug-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to put in your bug report
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#licensing-of-contributed-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      Licensing of contributed material
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-control-branching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version control branching
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code formatting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-isnt-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation isn't optional
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests-arent-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests aren't optional
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="contributing">Contributing</h1>
+<blockquote>
+<p>quotes might be useful
+but I'm not sure why</p>
+</blockquote>
+<p>This is a collection of loosely related
+<a href="https://furius.ca/beancount"><code>beancount</code></a> plugins that I have pulled together
+based on a variety of community sources and inspiration. While I've tried to
+credit where due; it may be incomplete. If you find something that needs
+correction, please let me know with an issue on the <a href="https://github.com/muonzoo/beancount_muonzoo_plugins/issues">issue
+tracker</a>.</p>
+<h2 id="about">About</h2>
+<p>This document provides a set of best practices for open source contributions -
+bug reports, code submissions / pull requests, etc.</p>
+<p>This document is a derivation of <a href="https://contribution-guide.org">contribution-guide.org</a>'s <a href="https://github.com/bitprophet/contribution-guide.org/blob/main/index.rst">guideline document</a>
+which is itself open source. Feedback &amp; suggestions for improvement are welcome.</p>
+<hr />
+<h2 id="submitting-bugs">Submitting bugs</h2>
+<h3 id="due-diligence">Due diligence</h3>
+<p>Before submitting a bug, please do the following:</p>
+<ul>
+<li>
+<p>Perform <strong>basic troubleshooting</strong> steps:</p>
+<ul>
+<li><strong>Make sure you're on the latest version.</strong> If you're not on the most
+  recent version, your problem may have been solved already! Upgrading is
+  always the best first step.</li>
+<li><strong>Try older versions.</strong> If you're already <em>on</em> the latest release, try
+  rolling back a few minor versions (e.g. if on 1.7, try 1.5 or 1.6) and
+  see if the problem goes away. This will help the devs narrow down when
+  the problem first arose in the commit log.</li>
+<li><strong>Try switching up dependency versions.</strong> If the software in question has
+  dependencies (other libraries, etc) try upgrading/downgrading those as
+  well.</li>
+</ul>
+</li>
+<li>
+<p><strong>Search the <a href="https://github.com/muonzoo/beancount_muonzoo_plugins/issues">issue
+  tracker</a></strong> to
+  make sure it's not a known issue.</p>
+</li>
+<li>If you find a pre-existing issue, review the conversation and consider adding
+  additional context, test cases or platform information that would help with
+  resolution of the issue. eg) everyone has reported and issue on MacOS but
+  you're also experiencing it on Linux.</li>
+</ul>
+<h2 id="what-to-put-in-your-bug-report">What to put in your bug report</h2>
+<p>Make sure your report gets the attention it deserves: bug reports with missing
+information may be ignored or punted back to you, delaying a fix. The below
+constitutes a bare minimum; more info is almost always better:</p>
+<ul>
+<li><strong>What operating system are you on?</strong> Windows? (10? 11? is it 64-bit?)
+  macOS? (Catalina/10.15? Ventura/13.6? Intel or ARM/Apple Silicon?) Linux?
+  (Which distro? Which version <em>of</em> that distro?) Again, more detail is better.</li>
+<li><strong>What version of the core programming language interpreter/compiler are you
+  using?</strong> For example, if it's a Python project, are you using (C)Python
+  3.7.10? PyPy 3.10?</li>
+<li><strong>Which version or versions of the software are you using?</strong> Ideally, you
+  followed the advice above and have ruled out (or verified that the problem
+  exists in) a few different versions.</li>
+<li><strong>How did you install the runtime and software?</strong> Operating system packages?
+  pyenv? from source? Something like Conda, or a virtualenv?</li>
+<li>
+<p><strong>How can the developers recreate the bug on their end?</strong> If possible,
+  include a copy of your code, the command you used to invoke it, and the full
+  output of your run (if applicable.)</p>
+<ul>
+<li>A common tactic is to pare down your code until a simple (but still
+  bug-causing) "base case" remains. Not only can this help you identify
+  problems which aren't real bugs, but it means the developer can get to
+  fixing the bug faster.</li>
+</ul>
+</li>
+</ul>
+<h2 id="contributing-changes">Contributing changes</h2>
+<h3 id="licensing-of-contributed-material">Licensing of contributed material</h3>
+<blockquote>
+<p>Your contribution will be licensed as the rest of the project.</p>
+</blockquote>
+<p>Keep in mind as you contribute, that code, docs and other material submitted to
+open source projects are usually considered licensed under the same terms
+as the rest of the work.</p>
+<p>The details vary from project to project, but from the perspective of this
+document's authors:</p>
+<ul>
+<li>
+<p>Anything submitted to a project falls under the licensing terms in the
+  repository's top level <code>LICENSE</code> file.</p>
+<ul>
+<li>For example, if a project's <code>LICENSE</code> is BSD-based, contributors should
+  be comfortable with their work potentially being distributed in binary
+  form without the original source code.</li>
+</ul>
+</li>
+<li>
+<p>Per-file copyright/license headers are typically extraneous and undesirable.
+  Please don't add your own copyright headers to new files unless the project's
+  license actually requires them!</p>
+<ul>
+<li>Not least because even a new file created by one individual (who often
+  feels compelled to put their personal copyright notice at the top) will
+  inherently end up contributed to by dozens of others over time, making a
+  per-file header outdated/misleading.</li>
+</ul>
+</li>
+</ul>
+<h3 id="version-control-branching">Version control branching</h3>
+<blockquote>
+<p>One branch, one change.</p>
+</blockquote>
+<ul>
+<li>
+<p>Always <strong>make a new branch</strong> for your work, no matter how small. This makes
+  it easy for others to take just that one set of changes from your repository,
+  in case you have multiple unrelated changes floating around.</p>
+<ul>
+<li>A corollary: <strong>don't submit unrelated changes in the same branch/pull
+  request</strong>! The maintainer shouldn't have to reject your awesome bugfix
+  because the feature you put in with it needs more review.</li>
+</ul>
+</li>
+<li>
+<p><strong>Base your new branch off of the appropriate branch</strong> on the main
+  repository:</p>
+<ul>
+<li>
+<p><strong>Bug fixes</strong> should be based on the branch named after the <strong>oldest
+  supported release line</strong> the bug affects.</p>
+<ul>
+<li>E.g. if a feature was introduced in 1.1, the latest release line is
+  1.3, and a bug is found in that feature - make your branch based on
+  1.1.  The maintainer will then forward-port it to 1.3 and main.</li>
+<li>Bug fixes requiring large changes to the code or which have a chance
+  of being otherwise disruptive, may need to base off of <strong>main</strong>
+  instead. This is a judgement call -- ask the devs!</li>
+</ul>
+</li>
+<li>
+<p><strong>New features</strong> should branch off of <strong>the 'main' branch</strong>.</p>
+<ul>
+<li>Note that depending on how long it takes for the dev team to merge
+  your patch, the copy of <code>main</code> you worked off of may get out of
+  date! If you find yourself 'bumping' a pull request that's been
+  sidelined for a while, <strong>make sure you rebase or merge to latest
+  main</strong> to ensure a speedier resolution.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="code-formatting">Code formatting</h2>
+<blockquote>
+<p>TL;DR -  We use <code>ruff format</code> as configured in <a href="https://github.com/muonzoo/beancount_muonzoo_plugins/pyproject.toml"><code>pyproject.toml</code></a>.</p>
+</blockquote>
+<ul>
+<li><strong>Follow the style you see used in the primary repository</strong>! Consistency with
+  the rest of the project always trumps other considerations. It doesn't matter
+  if you have your own style or if the rest of the code breaks with the greater
+  community - just follow along.</li>
+<li>Python projects usually follow the <code>PEP-8
+  &lt;http://www.python.org/dev/peps/pep-0008/&gt;</code>_ guidelines (though many have
+  minor deviations depending on the lead maintainers' preferences.)</li>
+</ul>
+<h2 id="documentation-isnt-optional">Documentation isn't optional</h2>
+<p>It's not! Patches without documentation will be returned to sender.  By
+"documentation" we mean:</p>
+<ul>
+<li>
+<p><strong>Docstrings</strong> (for Python; or API-doc-friendly comments for other languages)
+  must be created or updated for public API functions/methods/etc. (This step
+  is optional for some bugfixes.)</p>
+<ul>
+<li>
+<p>Don't forget to include <code>versionadded
+  &lt;https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-versionadded&gt;</code><em>/<code>versionchanged
+  &lt;https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-versionchanged&gt;</code></em> ReST
+  directives at the bottom of any new or changed Python docstrings!</p>
+<ul>
+<li>Use <code>versionadded</code> for truly new API members -- new methods,
+  functions, classes or modules.</li>
+<li>Use <code>versionchanged</code> when adding/removing new function/method
+  arguments, or whenever behavior changes.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>New features should ideally include updates to <strong>prose documentation</strong>,
+  including useful example code snippets.</p>
+</li>
+<li>All submissions should have a <strong>changelog entry</strong> crediting the contributor
+  and/or any individuals instrumental in identifying the problem.</li>
+</ul>
+<h2 id="tests-arent-optional">Tests aren't optional</h2>
+<p>Any bugfix that doesn't include a test proving the existence of the bug being
+fixed, may be suspect.  Ditto for new features that can't prove they actually
+work.</p>
+<p>We've found that test-first development really helps make features better
+architected and identifies potential edge cases earlier instead of later.
+Writing tests before the implementation is strongly encouraged.</p>
+<h2 id="full-example">Full example</h2>
+<p>Here's an example workflow for a project <code>theproject</code> hosted on Github, which
+is currently in version 1.3.x. Your username is <code>yourname</code> and you're
+submitting a basic bugfix. (This workflow only changes slightly if the project
+is hosted at Bitbucket, self-hosted, or etc.)</p>
+<p>Preparing your Fork
+^^^^^^^^^^^^^^^^^^^</p>
+<ol>
+<li>Click 'Fork' on Github, creating e.g. <code>yourname/theproject</code>.</li>
+<li>Clone your project: <code>git clone git@github.com:yourname/theproject</code>.</li>
+<li><code>cd theproject</code></li>
+<li><code>Create and activate a virtual environment &lt;https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments&gt;</code>_.</li>
+<li>Install the development requirements: <code>pip install -r dev-requirements.txt</code>.</li>
+<li>Create a branch: <code>git checkout -b foo-the-bars 1.3</code>.</li>
+</ol>
+<p>Making your Changes
+^^^^^^^^^^^^^^^^^^^</p>
+<ol>
+<li>Add changelog entry crediting yourself.</li>
+<li>Write tests expecting the correct/fixed functionality; make sure they fail.</li>
+<li>Hack, hack, hack.</li>
+<li>Run tests again, making sure they pass.</li>
+<li>Commit your changes: <code>git commit -m "Foo the bars"</code></li>
+</ol>
+<p>Creating Pull Requests
+^^^^^^^^^^^^^^^^^^^^^^</p>
+<ol>
+<li>Push your commit to get it back up to your fork: <code>git push origin HEAD</code></li>
+<li>Visit Github, click handy "Pull request" button that it will make upon
+   noticing your new branch.</li>
+<li>In the description field, write down issue number (if submitting code fixing
+   an existing issue) or describe the issue + your fix (if submitting a wholly
+   new bugfix).</li>
+<li>Hit 'submit'! And please be patient - the maintainers will get to you when
+   they can.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="analytics" checked>
+      <span class="task-list-indicator"></span>
+      Google Analytics
+    </label>
+  </li>
+
+      
+    
+    
+      
+    
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
