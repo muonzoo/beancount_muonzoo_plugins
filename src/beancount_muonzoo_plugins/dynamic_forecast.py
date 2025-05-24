@@ -149,6 +149,7 @@ def process_computed_entry(real_root, event_map, dynamic_transaction):
         gcu=get_currency_units,
         R=round_to_places,
         D=D,
+        A=amount.Amount,
     )
 
     calc_ctx = dict()
@@ -247,15 +248,14 @@ def dynamic_forecast(
     # get config items to add to each loan metadata
     cdict = parse_config_string(config_string)
 
-    debug_setting = cdict["debug"]
-    if debug_setting is None:
-        cdict["debug"] = False
+    debug_sets = cdict.get("debug_sets", None)
+    debug = cdict.get("debug", False)
+
+    if not debug:
         logger.disabled = True
-    elif isinstance(debug_setting, bool):
-        pass
-    elif "," in debug_setting:
+    elif debug_sets is not None and "," in debug_sets:
         cdict["debug"] = True
-        cdict["debug_sets"] = set(debug_setting.split(","))
+        cdict["debug_sets"] = set(debug_sets.split(","))
 
     cdict["debug_level"] = logging.getLevelName(cdict.get("debug_level", logging.INFO))
 
