@@ -3,7 +3,7 @@ site_name: Beancount Plugins
 nav:
   - Home: index.md
   - Contributing: contributing.md
-  - Loan Model: loan_model.md
+  - Dynamic Forecast: dynamic_forecast.md
   - Metadata Spray: metadata_spray.md
 
 theme:

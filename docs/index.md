@@ -2,13 +2,13 @@
 
 ## Plugins
 
-* [`loan_model`](loan_model.md) - Compute Recurring Transactions with Expression Evaluation Support.
-* `metadata_spray` - add metadata to directives using pattern matching.
+* [`dynamic_forecast`](dynamic_forecast.md) - Compute Recurring Transactions with Expression Evaluation Support.
+* [`metadata_spray`](metadata_spray.md) - add metadata to directives using pattern matching.
 
 ## Project layout
 
     src/beancount_muonzoo_plugins/ # plugins
-        loan_model.py              # `loan_model`
+        dynamic_forecast.py        # Dynamically Compute Postings
         metadata_spray.py          # `metadata_spray` plugin
         *_test.py                  # unittests for same
     mkdocs.yml                     # The configuration file.
