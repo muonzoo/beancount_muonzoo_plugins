@@ -9,15 +9,8 @@ the up-to-date state of the beancount journal.
 
 ## Example
 
-## XYZZY 
-
-::: beancount_muonzoo_plugins.dynamic_forecast
-
 -------------------------------------------------------------------------------
 
-## SPAMBAR
-
-## Dynamic Repeating Transactions (`dynamic_forecast`)
 
 ::: beancount_muonzoo_plugins.dynamic_forecast.dynamic_forecast
 
